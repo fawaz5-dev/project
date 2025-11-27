@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot Preview – {{ client.brand }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f8f9fa;
+        }
+
+        header {
+            background: #343a40;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        header a {
+            background: #ffc107;
+            color: #212529;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        .greeting {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: {{ client.color }};
+        }
+
+        .faqs {
+            margin-top: 2rem;
+        }
+
+        .faq {
+            margin-bottom: 1.2rem;
+        }
+
+        .embed {
+            margin-top: 2rem;
+            background: #f1f1f1;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            color: #333;
+            word-break: break-word;
+            position: relative;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #ccc;
+            margin-top: 2rem;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Chatbot Preview</h1>
+        <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+    </header>
+
+    <div class="container">
+        {% if client.logo %}
+  	  <img src="{{ client.logo }}" alt="Logo" 
+  	       style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); margin-bottom: 1rem;">
+	{% endif %}
+
+        
+        
+        {% if client.logo %}
+            <img src="{{ client.logo }}" alt="Logo" style="...">
+        {% endif %}
+
+        <h2>{{ client.brand }}</h2>
+        <p class="greeting">{{ client.greeting }}</p>
+
+        <h3>Live Chatbot Demo</h3>
+        <iframe src="{{ url_for('chatbot_preview') }}"></iframe>
+
+        <h3>Embed This Chatbot</h3>
+        <div class="embed" id="embed-container">
+            &lt;script src="https://broqbot.com/widget/{{ client.id }}/embed.js" defer&gt;&lt;/script&gt;
+            <button class="copy-button" onclick="copyEmbedCode()">Copy</button>
+        </div>
+
+        <h3>FAQs</h3>
+        <div class="faqs">
+            {% for faq in faqs %}
+                <div class="faq">
+                    <strong>Q:</strong> {{ faq.question }}<br>
+                    <strong>A:</strong> {{ faq.answer }}
+                </div>
+            {% else %}
+                <p>No FAQs added yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function copyEmbedCode() {
+            const embedDiv = document.getElementById('embed-container');
+            const code = embedDiv.innerText.trim();
+            navigator.clipboard.writeText(code).then(() => {
+                alert("Embed code copied!");
+            }).catch(err => {
+                alert("Failed to copy code: " + err);
+            });
+        }
+    </script>
+</body>
+</html>
+

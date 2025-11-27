@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Bro-Q Bot is a chatbot offering live weather updates, currency conversion, translation in over 150 languages, music recommendations and much more. Explore our user-friendly, interactive chatbot today!">
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="icon" type="image/png" href="static/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bro-Q Bot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f5dc; /* Cream white background */
+            font-family: Poppins, sans-serif;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .dark-mode {
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+
+        header {
+            background-color: #1e3a5f; /* Dark blue */
+            color: white;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+
+
+        header img {
+            max-width: 90px;
+            margin-top: 60px;
+        }
+
+        header h1 {
+            display: inline;
+            font-size: em;
+            margin-left: 10px;
+        }
+
+        #chatbox {
+            background-color: #ffffff;
+            border: 2px solid #1e3a5f; /* Dark blue border */
+            border-radius: 10px;
+            width: 80%;  header {
+            background-color: #1e3a5f; /* Dark blue */
+            color: white;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header img {
+            max-width: 30px;
+            vertical-align: baseline;
+        }
+
+
+
+        header h1 {
+            display: inline;
+            font-size: 1.8em;
+            margin-left: 10px;
+        }
+            max-width: 600px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #auth-buttons {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .auth-btn {
+            background-color: #ff4b4b;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9em;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .auth-btn:hover {
+            background-color: #1e3a5f;
+        }
+
+        .dark-mode #chatbox {
+            background-color: #2a2a2a;
+            border-color: #ffffff;
+        }
+
+        #conversation {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+
+        #conversation p {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            padding: 8px;
+            margin: 5px 0;
+            max-width: 70%;
+            box-shadow: 0 3px 6px rgba(0, 0, 0,1);
+        }
+
+        .dark-mode #conversation p {
+            background-color: #444;
+        }
+
+        #conversation p.user {
+            background-color: #1e3a5f; /* Dark blue for user */
+            color: white;
+            align-self: flex-end;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0,2);
+        }
+
+        #conversation p.bot {
+            background-color: #ff4b4b; /* Red for bot */
+            color: white;
+            align-self: flex-start;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0,2);
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #1e3a5f;
+            border-radius: 5px;
+            width: calc(100% - 80px);
+            margin-right: 10px;
+        }
+
+        #typing-indicator {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #777;
+            display: none;
+        }
+
+        button {
+            background-color: #1e3a5f; /* Dark blue */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            min-width: 110px;
+            text-align: center;
+        }
+
+        button:hover {
+            background-color: #ff4b4b; /* Hover effect to red */
+        }
+
+        #quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 8px 15px;
+            font-size: 0.8em;
+        }
+
+        footer {
+            background-color: #1e3a5f; /* Dark blue */
+            color: white;
+            width: 100%;
+            padding: 5px 0;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            font-size: 0.8em;
+        }
+
+        @media (max-width: 768px) {
+            #weather-btn, #CurrencyConversion-btn {
+                display: none;
+            }
+
+            #translate-btn {
+                padding: 5px 10px;
+                font-size: 0.8em;
+            }
+
+            #motivate-btn {
+                padding: 5px 10px;
+                font-size: 0.8em;
+            }
+
+            #quick-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #quick-actions button {
+                width: 80%;
+            }
+
+
+
+
+        }
+    </style>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+    <h1>Bro-Q Bot</h1>
+    <h3 style="font-weight: normal; margin-top: -10px;">- Your Digital Buddy -</h3>
+    <button onclick="toggleDarkMode()"> Dark Mode</button>
+
+    <!-- Add the auth buttons here -->
+    {% if not current_user.is_authenticated %}
+    <div id="auth-buttons">
+        <form action="/login" style="margin: 0;">
+            <button type="submit" class="auth-btn">Login</button>
+        </form>
+        <form action="/register" style="margin: 0;">
+            <button type="submit" class="auth-btn">Register</button>
+        </form>
+        <form action="/business" style="margin: 0;">
+            <button type="submit" class="auth-btn">Business</button>
+        </form>
+    </div>
+    {% else %}
+    <div id="auth-buttons">
+        <form action="/logout" method="get" style="margin:0;">
+            <button type="submit" class="auth-btn">Logout</button>
+        </form>
+    </div>
+    {% endif %}
+    </header>
+
+
+
+    <div id="chatbox">
+        <div id="conversation">
+            <p class="bot">🤖: {{ opening_message }}</p>
+        </div>
+        <p id="typing-indicator">...</p>
+        <div>
+            <input type="text" id="user_input" placeholder="Ask me anything....kind of">
+            <button id="send">Send</button>
+        </div>
+
+         <div id="quick-actions">
+            <button id="joke-btn">Tell me a joke!</button>
+            <button id="weather-btn">Check Weather</button>
+            <button id="motivate-btn">Motivate me!⚡</button>
+            <button id="CurrencyConversion-btn">Convert Currency</button>
+            <button id="flirt-btn">Flirt With Me 💘</button>
+            <button id="roast-btn">Roast Me 🔥</button>
+            <button id="translate-btn">Translate</button>
+            <button id="music-btn">Play a song🎧🎵</button>
+
+
+        </div>
+    </div>
+
+
+      <!-- API Partners Section with Google Translate -->
+    <div id="api-partners" style="text-align: center; padding: 20px;">
+        <h2>API Partners</h2>
+        <div style="display: flex; justify-content: center; gap: 10px;">
+            <img src="/static/jokes.png" alt="Jokes API" style="height: 40px;">
+            <img src="/static/spotify.png" alt="Spotify API" style="height: 40px;">
+            <img src="/static/openx.png" alt="Exchange Rate API Logo" style="height: 50px;">
+             <img src="/static/zen.png" alt="zen API Logo" style="height: 50px;">
+            <img src="/static/googletranslate.png" alt="google translate api logo" style="height: 40px;">  <!-- Added Google Translate logo -->
+        </div>
+    </div>
+
+    <footer>
+        Made by Fawaz Mashdee™
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+        }
+
+        // Load dark mode preference
+        if (localStorage.getItem("darkMode") === "true") {
+            document.body.classList.add("dark-mode");
+        }
+
+        function speakText(text) {
+            let speech = new SpeechSynthesisUtterance(text);
+            speech.lang = "auto";
+            window.SpeechSynthesis.speak(speech);
+        }
+
+        $(document).ready(function() {
+            $('#send').click(function() {
+                var message = $('#user_input').val();
+                $('#conversation').append('<p class="user">You: ' + message + '</p>');
+                $('#typing-indicator').show();
+                
+                $.ajax({
+                    url: '/chat',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ message: message }),
+                    success: function(response) {
+                        $('#typing-indicator').hide();
+                        $('#conversation').append('<p class="bot">🤖: ' + response.response + '</p>');
+                        $('#user_input').val('');
+                        $('#conversation').scrollTop($('#conversation')[0].scrollHeight);
+                    }
+                });
+            });
+
+            $('#user_input').keypress(function(e) {
+                if (e.which == 13) {
+                    $('#send').click();
+                }
+            });
+
+            $('#joke-btn').click(function() {
+                $('#user_input').val("tell me a joke");
+                $('#send').click();
+            });
+
+            $('#music-btn').click(function() {
+                $('#user_input').val("play a song");
+                $('#send').click();
+            });
+
+            $('#translate-btn').click(function() {
+                $('#user_input').val("Translate");
+                $('#send').click();
+            });
+
+
+            $('#weather-btn').click(function() {
+                $('#user_input').val("Weather");
+                $('#send').click();
+            });
+
+             $('#motivate-btn').click(function() {
+                $('#user_input').val("Motivate me!");
+                $('#send').click();
+            });
+
+            $('#flirt-btn').click(function() {
+                $('#user_input').val("flirt with me");
+                $('#send').click();
+            });
+
+            $('#roast-btn').click(function() {
+                $('#user_input').val("roast me");
+                $('#send').click();
+            });
+
+
+
+            $('#CurrencyConversion-btn').click(function() {
+                $('#user_input').val("Convert");
+                $('#send').click();
+            });
+        });
+    </script>
+</body>
+</html>

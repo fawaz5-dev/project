@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Client Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background-color: #0a0a0a;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(90deg, #111, #1a1a1a);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(255, 0, 60, 0.3);
+    }
+
+    header img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    header h1 {
+      color: #ff003c;
+      font-size: 1.8rem;
+      margin: 0;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 3rem auto;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(255, 0, 60, 0.4);
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 8px;
+      background: #1a1a1a;
+      color: #ffdee9;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      box-shadow: 0 0 10px #ff003c;
+    }
+
+    .faq-item {
+      border-left: 4px solid #ff003c;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: #1e1e1e;
+      border-radius: 8px;
+    }
+
+    button {
+      background: #ff003c;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      box-shadow: 0 0 12px #ff003c, 0 0 24px #ff003c66;
+      transform: translateY(-2px);
+    }
+
+    .embed-box {
+      background: #111;
+      color: #0ff;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 6px;
+      display: block;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="https://broqbot.com" class="logo-link">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="BroQBot Logo">
+      <h1>Client Dashboard</h1>
+    </a>
+  </header>
+
+  <main>
+    <form action="{{ url_for('save_dashboard') }}" method="POST" enctype="multipart/form-data">
+
+      <label>Brand Name:</label>
+      <input type="text" name="brand" required>
+
+      <label>Greeting Message:</label>
+      <textarea name="greeting" required></textarea>
+
+      <label>Primary Color:</label>
+      <input type="color" name="color" value="#1d1b64">
+
+      <label>Logo Upload:</label>
+      <input type="file" name="logo" accept="image/*">
+
+      <div class="faq-section">
+        <h3 style="margin-bottom: 0.5rem;">FAQs (Max 25)</h3>
+        <div id="faq-container">
+          <div class="faq-item">
+            <label>Question 1:</label>
+            <input type="text" name="question_1">
+            <label>Answer 1:</label>
+            <input type="text" name="answer_1">
+          </div>
+        </div>
+        <button type="button" class="add-faq-btn" onclick="addFAQ()">➕ Add FAQ</button>
+      </div>
+
+      <<button type="submit">Save & Preview</button>
+    </form>
+
+    {% if client %}
+    <div class="embed-section">
+      <h3>Embed Your Chatbot</h3>
+      <button onclick="toggleEmbed()">📎 Generate Widget Link</button>
+      <div id="embed-container" style="display:none;">
+        <p>Paste this script into your website's HTML:</p>
+        <div class="embed-box">
+        <pre id="embed-snippet">&lt;script src="http://broqbot.com/widget/{{ client.id }}/embed.js" defer&gt;&lt;/script&gt;</pre>
+        </div>
+        <button onclick="copyEmbed()">📋 Copy to Clipboard</button>
+      </div>
+    </div>
+    {% endif %}
+  </main>
+
+  <script>
+    let faqCount = 1;
+    const faqLimit = 25;
+
+    function addFAQ() {
+      if (faqCount >= faqLimit) {
+        alert("You can only add up to 25 FAQs.");
+        return;
+      }
+      faqCount++;
+      const container = document.getElementById("faq-container");
+      const div = document.createElement("div");
+      div.className = "faq-item";
+      div.innerHTML = `
+        <label>Question ${faqCount}:</label>
+        <input type="text" name="question_${faqCount}">
+        <label>Answer ${faqCount}:</label>
+        <input type="text" name="answer_${faqCount}">
+      `;
+      container.appendChild(div);
+    }
+
+    function toggleEmbed() {
+      const box = document.getElementById("embed-container");
+      box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function copyEmbed() {
+      const text = document.getElementById("embed-snippet").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Embed code copied!");
+      });
+    }
+  </script>
+</body>
+</html>
+
+

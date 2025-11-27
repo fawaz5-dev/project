@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bro-Q Bot for Businesses</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, #0b0c1a, #0d0d0d);
+      color: #fff;
+    }
+
+    header {
+      background-color: #11172b;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      color: #e84545;
+      font-size: 26px;
+    }
+
+    header nav a {
+      color: #fff;
+      margin-left: 20px;
+      text-decoration: none;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    .hero h2 {
+      font-size: 48px;
+      color: #e84545;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #ccc;
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+
+    .hero a {
+      padding: 12px 30px;
+      background: #e84545;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .particles {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     pointer-events: none;
+     z-index: -1;
+   }
+
+    .particle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background-color: #e84545;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: float 12s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 0.5; }
+      50% { transform: translateY(-40px); opacity: 1; }
+      100% { transform: translateY(0); opacity: 0.5; }
+    }
+
+
+    .section {
+      padding: 80px 40px;
+      text-align: center;
+    }
+
+    .section h3 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #e84545;
+    }
+
+    .section p {
+      max-width: 600px;
+      margin: 0 auto;
+      color: #ccc;
+    }
+
+    .features {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .feature-box {
+      background: #1c1f2f;
+      padding: 30px;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.1);
+    }
+
+    .pricing {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .price-card {
+      background: #1c1f2f;
+      padding: 30px;
+      border-radius: 10px;
+      width: 280px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.1);
+    }
+
+    .price-card h4 {
+      color: #e84545;
+      font-size: 22px;
+    }
+
+    .price-card p {
+      color: #ccc;
+      margin: 15px 0;
+    }
+
+    .price-card a {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 25px;
+      background: #e84545;
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #11172b;
+      color: #777;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="particles">
+  {% for i in range(30) %}
+    <div class="particle" style="top: {{ (loop.index0 * 47) % 100 }}vh; left: {{ (loop.index0 * 73) % 100 }}vw;"></div>
+  {% endfor %}
+</div>
+
+
+<header>
+  <h1><a href="https://broqbot.com" style="color: #e84545; text-decoration: none;">Bro-Q Bot</a></h1>
+  <nav>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="/login">Login</a>
+    <a href="/register">Get Started</a>
+  </nav>
+</header>
+
+<section class="hero">
+<section class="hero">
+  <h1>Turn Visitors Into Paying Customers</h1>
+  <p>Embed a smart, branded chatbot on your site in minutes. Automate support, boost engagement, and capture leads — effortlessly.</p>
+  <a href="/register" class="cta-button">Start Free Trial</a>
+</section>
+
+<section class="section" id="features">
+  <h2>Built for Growth-Driven Businesses</h2>
+  <div class="features">
+    <div class="feature-box">
+      <h3>Your Branding, Front and Center</h3>
+      <p>Customize the chatbot with your logo, colors, and name. Make it feel like part of your brand — not ours.</p>
+    </div>
+    <div class="feature-box">
+      <h3>Smart FAQ Automation</h3>
+      <p>Answer up to 70+ frequently asked questions — instantly. Save time while giving visitors what they need.</p>
+    </div>
+    <div class="feature-box">
+      <h3>Lead Capture + CRM Sync</h3>
+      <p>Every chat session is sent to your inbox. Follow up, close deals, and grow relationships seamlessly.</p>
+    </div>
+    <div class="feature-box">
+      <h3>Multilingual & API-Ready</h3>
+      <p>Scale globally with multilingual support and custom integrations tailored to your workflows.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="social-proof">
+  <h2>Loved by Businesses, Trusted by Teams</h2>
+  <p>Join dozens of businesses already automating support and converting leads 24/7.</p>
+  <!-- Add testimonial cards or logos here -->
+</section>
+
+<section class="section" id="pricing">
+  <h2>Simple, Transparent Pricing</h2>
+  <p>No hidden fees. No long-term commitments. Cancel anytime.</p>
+  <div class="pricing">
+    <div class="price-card">
+      <h3>Basic</h3>
+      <ul>
+        <li>✔ Up to 25 FAQs</li>
+        <li>✔ Branded Experience</li>
+        <li>✔ Email Chat History</li>
+        <li>✔ Automated Replies</li>
+      </ul>
+      <p class="price">$28/month</p>
+      <a href="/register" class="cta-button">Start Free Trial</a>
+    </div>
+
+    <div class="price-card popular">
+      <h3>Pro</h3>
+      <ul>
+        <li>✔ 70 FAQs</li>
+        <li>✔ Full Branding Suite</li>
+        <li>✔ CRM & Chat History</li>
+        <li>✔ Custom Responses</li>
+        <li>✔ Multilingual Support</li>
+      </ul>
+      <p class="price">$55/month</p>
+      <a href="/register" class="cta-button">Get Pro</a>
+    </div>
+
+    <div class="price-card">
+      <h3>Enterprise</h3>
+      <ul>
+        <li>✔ Unlimited FAQs</li>
+        <li>✔ API & Custom Integrations</li>
+        <li>✔ Priority Support</li>
+        <li>✔ Tailored Features</li>
+      </ul>
+      <p class="price">$110/month</p>
+      <a href="/register" class="cta-button">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  &copy; 2025 Bro-Q Bot. All rights reserved.
+</footer>
+
+</body>
+</html>
