@@ -10,19 +10,10 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_mail import Mail, Message
 from itsdangerous import URLSafeTimedSerializer
-from models import db
-from models import faq
 from werkzeug.utils import secure_filename
-from models.client import Client
-from utils.generate_widget import generate_widget_js
 from flask import Response
 import uuid 
 from difflib import SequenceMatcher 
-from utils.generate_widget import generate_widget_js
-from flask_migrate import Migrate
-from models.user import User
-from google.cloud import storage
-from google.oauth2 import service_account
 import uuid
 
 
@@ -44,12 +35,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 UPLOAD_FOLDER = os.path.join('static', 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-
-
-
-db.init_app(app)  # ✅ properly links the one shared db to your Flask app
-migrate = Migrate(app, db)
 
 
 
@@ -694,201 +679,16 @@ def quick_action():
     data = request.json
     action = data.get('action')
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form['username'].strip()
-        email = request.form['email'].strip().lower()
-        password_raw = request.form['password']
-
-        # Check if user already exists
-        existing_email = User.query.filter_by(email=email).first()
-        existing_username = User.query.filter_by(username=username).first()
-
-        if existing_email:
-            return render_template('register.html', error="Email already registered.")
-        if existing_username:
-            return render_template('register.html', error="Username already taken.")
-
-        # Hash password and create user
-        hashed_password = bcrypt.generate_password_hash(password_raw).decode('utf-8')
-        new_user = User(username=username, email=email, password=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
-
-        return redirect(url_for('login'))
-
-    return render_template('register.html')
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        email = request.form['email'].strip().lower()
-        password = request.form['password']
-        
-        user = User.query.filter_by(email=email).first()
-        
-        if user and bcrypt.check_password_hash(user.password, password):
-            remember_me = True if 'remember' in request.form else False
-            login_user(user)
-            return redirect(url_for('dashboard'))
-        else:
-            return render_template('login.html', error="Invalid email or password.")
-
-    return render_template('login.html')
-
-@app.route('/forgot-password', methods=['GET','POST'])
-def forgot_password():
-    if request.method=='POST':
-        email = request.form['email'].strip().lower()
-        user  = User.query.filter_by(email=email).first()
-        if user:
-            token     = generate_reset_token(email)
-            reset_url = url_for('reset_password', token=token, _external=True)
-
-            msg = Message(
-                "Your Bro-Q Bot Password Reset",
-                sender=app.config['MAIL_USERNAME'],
-                recipients=[email]
-            )
-            # plain-text
-            msg.body = (
-                "You requested a password reset.\n\n"
-                f"Click here to reset:\n<{reset_url}>\n\n"
-                "If you didn’t request this, ignore this email."
-            )
-            # HTML (so it’s clickable, unbroken)
-            msg.html = (
-                "<p>You requested a password reset.</p>"
-                f"<p><a href='{reset_url}'>Reset your password now</a></p>"
-                "<p>If you didn't request this, you can safely ignore this email.</p>"
-            )
-
-            mail.send(msg)
-
-        return render_template('forgot_password.html',
-                               message="If that email exists, a reset link has been sent.")
-    return render_template('forgot_password.html')
-
-@app.route('/dashboard')
-@login_required
-def dashboard():
-    client = Client.query.filter_by(user_id=current_user.id).first()
-    return render_template('dashboard.html', client=client)
-
-
-@app.route('/chatbot/<int:client_id>')
-def chatbot_ui(client_id):
-    client = Client.query.get_or_404(client_id)
-    return render_template('chatbot.html', client=client)
 
 
 from flask import request, redirect, url_for
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
-from models import db
-from models.client import Client
+
 
 
 import traceback
 import logging
-
-@app.route('/dashboard/save', methods=['POST'])
-@login_required
-def save_dashboard():
-    user_id = current_user.id
-
-    # Safely get existing client or set as None
-    client = Client.query.filter_by(user_id=user_id).first()
-
-    # Extract form data
-    brand = request.form.get('brand', '').strip()
-    greeting = request.form.get('greeting', '').strip()
-    color = request.form.get('color', '#000000')
-
-    # Handle logo upload
-    logo_file = request.files.get('logo')
-    logo_filename = client.logo if client and client.logo else None
-
-    if logo_file and logo_file.filename:
-        from utils.gcs_upload import upload_to_gcs
-        logo_filename = upload_to_gcs(logo_file)
-
-    if client:
-        # Update existing
-        client.brand = brand
-        client.greeting = greeting
-        client.color = color
-        client.logo = logo_filename
-    else:
-        # Create new
-        client = Client(
-            user_id=user_id,
-            brand=brand,
-            greeting=greeting,
-            color=color,
-            logo=logo_filename
-        )
-        db.session.add(client)
-        db.session.flush()  # to get client.id
-
-    # Remove old FAQs and add new ones
-    FAQ.query.filter_by(client_id=client.id).delete()
-    for i in range(1, 26):
-        q = request.form.get(f'question_{i}')
-        a = request.form.get(f'answer_{i}')
-        if q and a:
-            faq = FAQ(question=q.strip(), answer=a.strip(), client_id=client.id, user_id=user_id)
-            db.session.add(faq)
-
-    db.session.commit()
-
-    return redirect(url_for('preview', client_id=client.id))
-
-
-@app.route('/preview')
-def preview():
-    client = session.get('client')
-    faqs = session.get('faqs', [])
-    return render_template('preview.html', client=client, faqs=faqs)
-
-@app.route('/widget/<int:client_id>.js')
-def serve_widget(client_id):
-    client = Client.query.get_or_404(client_id)
-    js_code = generate_widget_js(client)
-    return Response(js_code, mimetype='application/javascript')
-
-@app.route('/chatbot/<int:client_id>')
-def chatbot(client_id):
-    client = Client.query.get_or_404(client_id)
-    return render_template('chatbot.html', client=client)
-
-@app.route('/api/client/<int:client_id>/config')
-def get_client_config(client_id):
-    client = Client.query.get_or_404(client_id)
-    faqs = FAQ.query.filter_by(client_id=client.id).all()
-    
-    return jsonify({
-        "id": client.id,
-        "brand": client.brand,
-        "greeting": client.greeting,
-        "color": client.color,
-        "logo": url_for('static', filename=client.logo.replace('static/', '')),
-        "faqs": [{"question": faq.question, "answer": faq.answer} for faq in faqs]
-    })
-
-
-
-
-@app.route('/widget/<int:client_id>/embed.js')
-def serve_embed_script(client_id):
-    client = Client.query.get_or_404(client_id)
-    from utils.generate_widget import generate_widget_js
-    js_code = generate_widget_js(client)
-    return Response(js_code, mimetype='application/javascript')
-
-
-
 
 
 @app.route('/chatbot/ask', methods=['POST'])
@@ -909,56 +709,7 @@ def chatbot_ask_faq():
 
     return jsonify({'response': "Sorry, I don't have an answer for that yet."})
 
-    
-@app.route('/clients')
-def clients():
-    from models.client import Client
-    return {'clients': [c.id for c in Client.query.all()]}
-    
-@app.route('/chatbot/<brand_id>')
-def chatbot_page(brand_id):
-    return render_template("chatbot.html", brand_id=brand_id)
-    
-@app.route('/chatbot/preview')
-def chatbot_preview():
-    client = session.get('client')
-    if not client:
-        return "No client data found in session", 404
-    return render_template('chatbot.html', client=client)
 
-@app.route('/chatbot/preview-ask', methods=['POST'])
-def chatbot_preview_ask():
-    data = request.get_json()
-    message = data.get("message", "").lower()
-
-    faqs = session.get("faqs", [])
-
-    for faq in faqs:
-        if faq["question"].lower() in message:
-            return jsonify({'response': faq["answer"]})
-
-    return jsonify({'response': "Sorry, I don't have an answer for that yet."})
-
-
-@app.route('/reset-password/<token>', methods=['GET', 'POST'])
-def reset_password(token):
-    email = verify_reset_token(token)
-    if not email:
-        return "Invalid or expired token", 400
-    if request.method == 'POST':
-        new_password = request.form['password']
-        user = User.query.filter_by(email=email).first()
-        user.password = bcrypt.generate_password_hash(new_password)
-        db.session.commit()
-        return redirect(url_for('login'))
-    return render_template('reset_password.html')
-
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('login'))
 
 @app.route('/business')
 def business():
@@ -990,11 +741,6 @@ def chatbot_ask():
         return jsonify({'answer': "Sorry, I don't have an answer to that."})
 
 
-with app.app_context():
-    from models.client import Client
-    from models.faq import FAQ
-    db.create_all()
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
