@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Bro-Q Bot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Reuse your existing CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body {
+            background-color: #f6f5df;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            background-color: #1f3a5f;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header img {
+            height: 40px;
+            margin-bottom: 10px;
+        }
+
+        .nav-links {
+            margin-top: 15px;
+        }
+
+        .nav-links a {
+            color: #cfd8e3;
+            margin: 0 12px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-links a.active {
+            color: #ff6b5a;
+            border-bottom: 2px solid #ff6b5a;
+            padding-bottom: 4px;
+        }
+
+        .card {
+            max-width: 850px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            border: 2px solid #1f3a5f;
+        }
+
+        .card h1 {
+            margin-top: 0;
+            color: #1f3a5f;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #1f3a5f;
+            margin-bottom: 10px;
+        }
+
+        .section p, .section li {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        .footer-note {
+            text-align: center;
+            color: #777;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Bro-Q Bot Logo">
+        <h1>Bro-Q Bot</h1>
+
+	<div class="nav-links">
+		<a href="{{ url_for('index') }}">Home</a>
+    	<a href="{{ url_for('about') }}" class="active">About</a>
+    	<a href="{{ url_for('contact') }}">Contact</a>
+	</div>
+
+        </div>
+    </div>
+
+    <!-- Main Card -->
+    <div class="card">
+        <h1>About Bro-Q Bot</h1>
+        <div class="subtitle">
+            What it is, what it isn’t, and how it works
+        </div>
+
+        <div class="section">
+            <h2>What Bro-Q Bot Is</h2>
+            <p>
+                Bro-Q Bot is a lightweight conversational chatbot designed to help with quick questions,
+                simple tasks, and casual interaction.
+            </p>
+            <p>
+                It’s built to be fast, approachable, and easy to use, without requiring sign-ups or setup.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>What It’s Not</h2>
+            <p>
+                Bro-Q Bot is not meant to replace professional advice or expert judgment.
+            </p>
+            <p>
+                It should not be used for medical, legal, financial, or safety-critical decisions.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>How It Works</h2>
+            <ul>
+                <li>Detects the intent of your message</li>
+                <li>Uses predefined logic for tasks like weather, jokes, music, or translation</li>
+                <li>Falls back to AI-generated responses when needed</li>
+            </ul>
+            <p>
+                Responses are generated automatically and may not always be accurate.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Who It’s Best For</h2>
+            <ul>
+                <li>Curious users</li>
+                <li>Casual conversation</li>
+                <li>Quick lookups</li>
+                <li>Testing or demo purposes</li>
+            </ul>
+            <p>
+                If you need guaranteed accuracy or official sources, this may not be the right tool.
+            </p>
+        </div>
+
+        <div class="footer-note">
+            Built and maintained by <strong>Fawaz</strong>.
+        </div>
+    </div>
+
+</body>
+</html>
+
+

@@ -246,26 +246,15 @@
     <h3 style="font-weight: normal; margin-top: -10px;">- Your Digital Buddy -</h3>
     <button onclick="toggleDarkMode()"> Dark Mode</button>
 
-    <!-- Add the auth buttons here -->
-    {% if not current_user.is_authenticated %}
-    <div id="auth-buttons">
-        <form action="/login" style="margin: 0;">
-            <button type="submit" class="auth-btn">Login</button>
-        </form>
-        <form action="/register" style="margin: 0;">
-            <button type="submit" class="auth-btn">Register</button>
-        </form>
-        <form action="/business" style="margin: 0;">
-            <button type="submit" class="auth-btn">Business</button>
-        </form>
-    </div>
-    {% else %}
-    <div id="auth-buttons">
-        <form action="/logout" method="get" style="margin:0;">
-            <button type="submit" class="auth-btn">Logout</button>
-        </form>
-    </div>
-    {% endif %}
+	<div id="nav-buttons">
+    	<button onclick="window.location.href='{{ url_for('about') }}'" class="auth-btn">
+        	About
+    	</button>
+
+    	<button onclick="window.location.href='{{ url_for('contact') }}'" class="auth-btn">
+        	Contact
+    	</button>
+	</div>
     </header>
 
 

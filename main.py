@@ -273,20 +273,43 @@ genre_songs = {
         {"name": "360", "artist": "Charli XCX", "url": "https://open.spotify.com/track/4w2GLmK2wnioVnb5CPQeex"},
         {"name": "And The Beat Goes On", "artist": "The Whispers", "url": "https://open.spotify.com/track/42MAEkamRaomzO3UWqGdh3"},
         {"name": "Billie Jean ", "artist": "Michael Jackson", "url": "https://open.spotify.com/track/7J1uxwnxfQLu4APicE5Rnj?si=47675273df2e41d1"},
-        {"name": "Like a Prayer ", "artist": "Madonna", "url": "https://open.spotify.com/track/1z3ugFmUKoCzGsI6jdY4Ci?si=533ab1f0ad4a4638"},
-        {"name": "I  Wanna Dance with Somebody (Who Loves Me)", "artist": "Whitney Houston", "url": "https://open.spotify.com/track/2tUBqZG2AbRi7Q0BIrVrEj?si=056a913dc02a4999"},
+        {"name": "Espresso", "artist": "Sabrina Carpenter", "url": "https://open.spotify.com/track/2qSkIjg1o9h3YT9RAgYN75"},
+		{"name": "APT.", "artist": "ROSÉ & Bruno Mars", "url": "https://open.spotify.com/track/5vNRhkKd0yEAg8suGBpjeY"},
+		{"name": "Blinding Lights", "artist": "The Weeknd", "url": "https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b"},
+		{"name": "Don't Stop Me Now-Remastered 2011", "artist": "Queen", "url": "https://open.spotify.com/track/5T8EDUDqKcs6OSOwEsfqG7"},
+		{"name": "Like a Prayer ", "artist": "Madonna", "url": "https://open.spotify.com/track/1z3ugFmUKoCzGsI6jdY4Ci?si=533ab1f0ad4a4638"},
+        {"name": "Houdini", "artist": "Dua Lipa", "url": "https://open.spotify.com/track/6D8y7Bck8h11byRY88Pt2z"},
+		{"name": "good 4 u", "artist": "Olivia Rodrigo", "url": "https://open.spotify.com/track/4ZtFanR9U6ndgddUvNcjcG"},
+		{"name": "September", "artist": "Earth, Wind & Fire", "url": "https://open.spotify.com/track/2grjqo0Frpf2okIBiifQKs"},
+		{"name": "Treasure", "artist": "Bruno Mars", "url": "https://open.spotify.com/track/55h7vJchibLdUkxdlX3fK7"},
+		{"name": "I  Wanna Dance with Somebody (Who Loves Me)", "artist": "Whitney Houston", "url": "https://open.spotify.com/track/2tUBqZG2AbRi7Q0BIrVrEj?si=056a913dc02a4999"},
     ],
     "funk": [
         {"name": "Uptown Funk", "artist": "Mark Ronson ft. Bruno Mars", "url": "https://open.spotify.com/track/32OlwWuMpZ6b0aN2RZOeMS"},
         {"name": "Superstition", "artist": "Stevie Wonder", "url": "https://open.spotify.com/track/3wpL0cSc7tvY7uUtHEyW9i"},
+		{"name": "September", "artist": "Earth, Wind & Fire", "url": "https://open.spotify.com/track/2grjqo0Frpf2okIBiifQKs"},
+		{"name": "Treasure", "artist": "Bruno Mars", "url": "https://open.spotify.com/track/55h7vJchibLdUkxdlX3fK7"},
+		
     ],
     "dance": [
         {"name": "Titanium", "artist": "David Guetta ft. Sia", "url": "https://open.spotify.com/track/0lHAMNU8RGiIObScrsRgmP"},
         {"name": "Don't Start Now", "artist": "Dua Lipa", "url": "https://open.spotify.com/track/3PfIrDoz19wz7qK7tYeu62"},
+		{"name": "360", "artist": "Charli XCX", "url": "https://open.spotify.com/track/4w2GLmK2wnioVnb5CPQeex"},
+		{"name": "APT.", "artist": "ROSÉ & Bruno Mars", "url": "https://open.spotify.com/track/5vNRhkKd0yEAg8suGBpjeY"},
+		{"name": "Espresso", "artist": "Sabrina Carpenter", "url": "https://open.spotify.com/track/2qSkIjg1o9h3YT9RAgYN75"},
+		{"name": "Make Me Feel", "artist": "oscar med k", "url": "https://open.spotify.com/track/1GfJCWGLfdev016PSsrUO8"},
+		{"name": "No Broke Boys", "artist": "Disco Lines & Tinashe", "url": "https://open.spotify.com/track/3cZajhyr8LmtPfHZ9296tj"},
+		{"name": "Together", "artist": "David Guetta & Bonnie Tyler", "url": "https://open.spotify.com/track/3XJQz97R6A7bXn8awvFknM"},
+		{"name": "Levitating", "artist": "Dua Lipa", "url": "https://open.spotify.com/track/39LLxExYz6ewLAcYrzQQyP"},
+		{"name": "One More Time", "artist": "Daft Punk", "url": "https://open.spotify.com/track/0DiWol3AO6WpXZgp0goxAV"},
+		{"name": "Don't Stop The Music", "artist": "Rihanna", "url": "https://open.spotify.com/track/0ByMNEPAPpOR5H69DVrTNy"},
+		{"name": "Levels- Radio Edit", "artist": "Avicii", "url": "https://open.spotify.com/track/5UqCQaDshqbIk3pkhy4Pjg"},
+		{"name": "Guess", "artist": "Charlie XCX Ft Billie Eillish", "url": "https://open.spotify.com/track/0IsIY8pfu1yaGkPUD7pkDx"},
     ],
     "acoustic": [
         {"name": "Fast Car", "artist": "Tracy Chapman", "url": "https://open.spotify.com/track/2M9ro2krNb7nr7HSprkEgo?si=d30a55be412a48bd"},
         {"name": "Skinny Love", "artist": "Bon Iver", "url": "https://open.spotify.com/track/3B3eOgLJSqPEA0RfboIQVM?si=8a644c97431a4f39"},
+		{"name": "AIn't No Sunshine", "artist": "Bill Withers", "url": "https://open.spotify.com/track/1k1Bqnv2R0uJXQN4u6LKYt"},
     ],
     "lofi": [
         {"name": "Lofi Chill Beats", "artist": "Lofi Girl", "url": "https://open.spotify.com/track/3qKKfRlxH0JvFfwvO0teay"},
@@ -710,10 +733,14 @@ def chatbot_ask_faq():
     return jsonify({'response': "Sorry, I don't have an answer for that yet."})
 
 
+@app.route('/about')
+def about():
+    return render_template('aboutus.html')
 
-@app.route('/business')
-def business():
-    return render_template('business.html')
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
 
 @app.route('/chatbot/ask', methods=['POST'])
 def chatbot_ask():
