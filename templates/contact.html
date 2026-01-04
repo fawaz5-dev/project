@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contact Bro-Q Bot</title>
+    <title>Get in Touch | Bro-Q Bot</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
     <style>
@@ -13,6 +11,7 @@
             background-color: #f6f5df;
             margin: 0;
             font-family: Arial, sans-serif;
+            color: #1f3a5f;
         }
 
         .header {
@@ -20,11 +19,6 @@
             color: white;
             padding: 40px 20px;
             text-align: center;
-        }
-
-        .header img {
-            height: 40px;
-            margin-bottom: 10px;
         }
 
         .nav-links {
@@ -44,65 +38,60 @@
             padding-bottom: 4px;
         }
 
-        .card {
-            max-width: 700px;
-            margin: 50px auto;
-            background: white;
-            border-radius: 16px;
-            padding: 40px;
-            border: 2px solid #1f3a5f;
+        .container {
+            max-width: 600px;
+            margin: 80px auto;
+            text-align: center;
+            padding: 0 20px;
         }
 
         h1 {
-            margin-top: 0;
-            color: #1f3a5f;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
         }
 
         .subtitle {
-            color: #666;
-            margin-bottom: 30px;
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 40px;
         }
 
-        label {
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-btn {
             display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-            color: #333;
+            background: white;
+            color: #1f3a5f;
+            text-decoration: none;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #1f3a5f;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.2s ease;
         }
 
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        button {
+        .contact-btn:hover {
             background-color: #1f3a5f;
             color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 15px;
-            cursor: pointer;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(31, 58, 95, 0.15);
         }
 
-        button:hover {
-            background-color: #162b45;
+        /* Distinct style for the primary email */
+        .contact-btn.primary {
+            background-color: #ff6b5a;
+            color: white;
+            border-color: #ff6b5a;
         }
 
-        .footer-note {
-            margin-top: 30px;
-            font-size: 14px;
-            color: #777;
-            text-align: center;
+        .contact-btn.primary:hover {
+            background-color: #e55a4b;
+            border-color: #e55a4b;
         }
     </style>
 </head>
@@ -110,9 +99,8 @@
 <body>
 
 <div class="header">
-    <img src="{{ url_for('static', filename='logo.png') }}" alt="Bro-Q Bot Logo">
-    <h1>Bro-Q Bot</h1>
-
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Bro-Q Bot Logo" style="height: 40px; margin-bottom: 10px;">
+    <h1 class="site-title" style="margin: 0;">Bro-Q Bot</h1>
     <div class="nav-links">
         <a href="{{ url_for('index') }}">Home</a>
         <a href="{{ url_for('about') }}">About</a>
@@ -120,27 +108,18 @@
     </div>
 </div>
 
-<div class="card">
-    <h1>Contact & Feedback</h1>
-    <div class="subtitle">
-        Questions, feedback, or something not working?
-    </div>
+<div class="container">
+    <h1>Questions, feedback, or something not working?</h1>
+    <p class="subtitle"> Contact Us</p>
 
-    <form method="post" action="#">
-        <label for="name">Name (optional)</label>
-        <input type="text" id="name" name="name">
+    <div class="contact-links">
+        <a href="mailto:support@broqbot.com" class="contact-btn primary">
+            Email: support@broqbot.com
+        </a>
 
-        <label for="email">Email (optional)</label>
-        <input type="email" id="email" name="email">
-
-        <label for="message">Message</label>
-        <textarea id="message" name="message" required></textarea>
-
-        <button type="submit">Send Feedback</button>
-    </form>
-
-    <div class="footer-note">
-        Or email directly: <strong>support@broqbot.com</strong>
+        <a href="https://www.linkedin.com/company/bro-q-bot/" target="_blank" class="contact-btn">
+            Connect on LinkedIn
+        </a>
     </div>
 </div>
 
