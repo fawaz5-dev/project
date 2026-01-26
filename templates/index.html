@@ -240,22 +240,27 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <header>
-    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
-    <h1>Bro-Q Bot</h1>
-    <h3 style="font-weight: normal; margin-top: -10px;">- Your Digital Buddy -</h3>
-    <button onclick="toggleDarkMode()"> Dark Mode</button>
+	<header class="top-header">
+    	<div class="header-left">
+        	<img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        	<h1>Bro-Q Bot</h1>
+        	<h3>- Your Digital Buddy -</h3>
+        	<button onclick="toggleDarkMode()">Dark Mode</button>
+    </div>
 
-	<div id="nav-buttons">
-    	<button onclick="window.location.href='{{ url_for('about') }}'" class="auth-btn">
-        	About
-    	</button>
+    <div class="header-right">
+        <button onclick="window.location.href='{{ url_for('about') }}'" class="nav-btn">
+            About
+        </button>
+		<button onclick="window.location.href='{{ url_for('services') }}'">
+    		🚀 Build with Bro-Q Tech
+		</button>
+        <button onclick="window.location.href='{{ url_for('contact') }}'" class="nav-btn">
+            Contact
+        </button>
+    </div>
+</header>
 
-    	<button onclick="window.location.href='{{ url_for('contact') }}'" class="auth-btn">
-        	Contact
-    	</button>
-	</div>
-    </header>
 
 
 
@@ -276,7 +281,6 @@
             <button id="CurrencyConversion-btn">Convert Currency</button>
             <button id="flirt-btn">Flirt With Me 💘</button>
             <button id="roast-btn">Roast Me 🔥</button>
-            <button id="translate-btn">Translate</button>
             <button id="music-btn">Play a song🎧🎵</button>
 
 
